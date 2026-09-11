@@ -1,0 +1,21 @@
+useEffect(() => {
+  loadPatients();
+  loadQueue();
+  loadPatientCount();
+  loadStats();
+}, []);
+
+const loadStats = async () => {
+  const { count: patientCount } = await supabase
+    .from("patients")
+    .select("*", { count: "exact", head: true });
+
+  const { count: appointmentCount } = await supabase
+    .from("appointments")
+    .select("*", { count: "exact", head: true });
+
+  setTodayPatients(patientCount || 0);
+  setPatientCount(patientCount || 0);
+  setTodayAppointments(appointmentCount || 0);
+  setTodayRevenue((appointmentCount || 0) * 200);
+};
