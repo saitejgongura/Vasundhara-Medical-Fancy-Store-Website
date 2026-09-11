@@ -154,7 +154,7 @@ export default function Billing() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
+    <div className="min-h-screen w-full bg-slate-100 p-4 md:p-6 lg:p-8">
       <h1 className="text-5xl font-bold text-blue-700 mb-8">
         Billing Dashboard
       </h1>
@@ -425,6 +425,8 @@ export default function Billing() {
     </div>
   );
 }
+
+
 
 
 

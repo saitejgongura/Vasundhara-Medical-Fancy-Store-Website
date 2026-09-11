@@ -41,44 +41,42 @@ export default function Sidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2 rounded-lg shadow-lg"
+        className="lg:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-lg shadow-lg"
       >
         <Menu size={24} />
       </button>
 
-      {/* Overlay (Mobile Only) */}
+      {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`
-          fixed md:sticky top-0 left-0 z-50
-          w-72 h-screen bg-slate-950 text-white
-          flex flex-col justify-between shadow-2xl
-          transform transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
-      >
-        {/* Top Section */}
+  className={`
+    fixed md:static top-0 left-0 z-50
+    w-72 h-screen md:h-auto bg-slate-950 text-white
+    flex flex-col justify-between shadow-2xl
+    transform transition-transform duration-300
+    md:translate-x-0
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+  `}
+>
+        {/* Top */}
         <div>
-          {/* Mobile Close Button */}
-          <div className="flex justify-end md:hidden p-4">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white"
-            >
+          {/* Close Button Mobile */}
+          <div className="flex justify-end p-4 lg:hidden">
+            <button onClick={() => setIsOpen(false)}>
               <X size={26} />
             </button>
           </div>
 
           {/* Logo */}
-          <div className="px-6 pb-6 md:pt-8 border-b border-slate-800 text-center">
-            <div className="w-28 h-28 md:w-36 md:h-36 mx-auto rounded-full overflow-hidden bg-white border-4 border-yellow-400 shadow-xl p-1">
+          <div className="px-6 py-6 border-b border-slate-800 text-center">
+            <div className="w-36 h-36 mx-auto rounded-full overflow-hidden bg-white border-4 border-yellow-400 shadow-xl p-1">
               <img
                 src={logo}
                 alt="Vasundhara Medical & Fancy Store"
@@ -86,11 +84,11 @@ export default function Sidebar() {
               />
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-tight mt-5">
+            <h1 className="text-3xl font-extrabold mt-5 leading-tight">
               Vasundhara
             </h1>
 
-            <h2 className="text-lg md:text-xl font-bold text-white leading-tight">
+            <h2 className="text-xl font-bold leading-tight">
               Medical & Fancy Store
             </h2>
 
@@ -100,7 +98,7 @@ export default function Sidebar() {
           </div>
 
           {/* Menu */}
-          <nav className="px-4 py-6 space-y-2 overflow-y-auto">
+          <nav className="px-5 py-6 space-y-2">
             {menu.map((item) => {
               const Icon = item.icon;
 
@@ -110,14 +108,14 @@ export default function Sidebar() {
                   to={item.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center gap-4 px-4 py-3 rounded-2xl transition-all font-medium text-base md:text-lg ${
+                    `flex items-center gap-4 px-5 py-4 rounded-2xl transition-all font-medium text-lg ${
                       isActive
                         ? "bg-blue-600 text-white shadow-lg"
                         : "text-slate-300 hover:bg-slate-800 hover:text-white"
                     }`
                   }
                 >
-                  <Icon size={22} />
+                  <Icon size={24} />
                   <span>{item.name}</span>
                 </NavLink>
               );
@@ -125,10 +123,10 @@ export default function Sidebar() {
           </nav>
         </div>
 
-        {/* Bottom Section */}
-        <div className="p-4 border-t border-slate-800">
-          <div className="bg-slate-900 rounded-2xl p-3 mb-4 flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-400 bg-white">
+        {/* Bottom */}
+        <div className="p-5 border-t border-slate-800">
+          <div className="bg-slate-900 rounded-2xl p-4 mb-4 flex items-center gap-3">
+            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-yellow-400 bg-white">
               <img
                 src={logo}
                 alt="Admin Logo"
@@ -137,10 +135,8 @@ export default function Sidebar() {
             </div>
 
             <div>
-              <h3 className="font-bold text-white text-sm">
-                Vasundhara Admin
-              </h3>
-              <p className="text-xs text-slate-400">Administrator</p>
+              <h3 className="font-bold text-white">Vasundhara Admin</h3>
+              <p className="text-sm text-slate-400">Administrator</p>
             </div>
           </div>
 

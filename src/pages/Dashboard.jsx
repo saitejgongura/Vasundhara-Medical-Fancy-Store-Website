@@ -167,13 +167,13 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="bg-slate-100 min-h-screen p-4 md:p-6 lg:p-8">
+    <div className="bg-slate-100 min-h-screen w-full p-8">
 
       {/* ================= HERO ================= */}
-      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-3xl p-5 md:p-8 shadow-xl text-white mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-3xl p-10 shadow-xl text-white mb-8 flex justify-between items-center">
 
         <div>
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+        <h1 className="text-6xl font-bold leading-tight">
             {clinic.clinic_name || "Gongura Medical&Fancy Store"}
           </h1>
 
@@ -184,7 +184,7 @@ export default function Dashboard() {
           <p className="text-blue-100 mt-4">{todayDate}</p>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-md rounded-3xl p-5 md:p-8 text-center w-full md:w-72">
+        <div className="bg-white/20 backdrop-blur-md rounded-3xl p-8 text-center w-72">
           <p className="text-lg">Today's Revenue</p>
 
          <h2 className="text-3xl md:text-5xl font-bold mt-3">
@@ -195,7 +195,7 @@ export default function Dashboard() {
       </div>
 
       {/* ================= STATISTICS ================= */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 mb-8">
+       <div className="grid grid-cols-5 gap-6 mb-8">
         {cards.map((card) => (
           <div
             key={card.title}
@@ -371,6 +371,9 @@ export default function Dashboard() {
     </div>
   );
 }
+
+
+
 
 
 
