@@ -22,43 +22,45 @@ import Settings from "./pages/Settings";
 
 function AppLayout() {
   const location = useLocation();
-
-  // Login page lo Sidebar hide cheyyi
   const isLoginPage = location.pathname === "/login";
 
   return (
-    <div className="flex bg-slate-100 min-h-screen">
-      {!isLoginPage && <Sidebar />}
-
-      <main className="flex-1 overflow-y-auto">
+    <div className="bg-slate-100 min-h-screen">
+      {isLoginPage ? (
+        // Login Page (No Sidebar)
         <Routes>
-          {/* Default route */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
-
-          {/* Login */}
           <Route path="/login" element={<Login />} />
-
-          {/* Dashboard */}
-          <Route path="/dashboard" element={<Dashboard />} />
-
-          {/* Patients */}
-          <Route path="/patients" element={<Patients />} />
-          <Route path="/add-patient" element={<AddPatient />} />
-          <Route path="/patient-details/:id" element={<PatientDetails />} />
-          <Route path="/edit-patient/:id" element={<EditPatient />} />
-
-          {/* Other Pages */}
-          <Route path="/appointments" element={<Appointments />} />
-          <Route path="/medicines" element={<Medicines />} />
-          <Route path="/billing" element={<Billing />} />
-          <Route path="/followups" element={<Followups />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/settings" element={<Settings />} />
-
-          {/* 404 */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </main>
+      ) : (
+        // All Other Pages
+        <div className="flex">
+          <Sidebar />
+
+          {/* Main Content */}
+          <main className="flex-1 w-full md:ml-72 p-4 md:p-6 lg:p-8 overflow-x-hidden">
+            <Routes>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+              <Route path="/dashboard" element={<Dashboard />} />
+
+              <Route path="/patients" element={<Patients />} />
+              <Route path="/add-patient" element={<AddPatient />} />
+              <Route path="/patient-details/:id" element={<PatientDetails />} />
+              <Route path="/edit-patient/:id" element={<EditPatient />} />
+
+              <Route path="/appointments" element={<Appointments />} />
+              <Route path="/medicines" element={<Medicines />} />
+              <Route path="/billing" element={<Billing />} />
+              <Route path="/followups" element={<Followups />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/settings" element={<Settings />} />
+
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </main>
+        </div>
+      )}
     </div>
   );
 }

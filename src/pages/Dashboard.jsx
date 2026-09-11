@@ -167,27 +167,27 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="bg-slate-100 min-h-screen p-8">
+    <div className="bg-slate-100 min-h-screen p-4 md:p-6 lg:p-8">
 
       {/* ================= HERO ================= */}
-      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-3xl p-10 shadow-xl text-white mb-8 flex justify-between items-center">
+      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-3xl p-5 md:p-8 shadow-xl text-white mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
 
         <div>
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight">
             {clinic.clinic_name || "Gongura Medical&Fancy Store"}
           </h1>
 
-          <p className="text-xl mt-2">
+          <p className="text-lg md:text-xl mt-2">
             {clinic.doctor_name || "Dr. RMP Clinic"}
           </p>
 
           <p className="text-blue-100 mt-4">{todayDate}</p>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-md rounded-3xl p-8 text-center">
+        <div className="bg-white/20 backdrop-blur-md rounded-3xl p-5 md:p-8 text-center w-full md:w-72">
           <p className="text-lg">Today's Revenue</p>
 
-          <h2 className="text-5xl font-bold mt-3">
+         <h2 className="text-3xl md:text-5xl font-bold mt-3">
             ₹{dashboard.revenue}
           </h2>
         </div>
@@ -195,11 +195,11 @@ export default function Dashboard() {
       </div>
 
       {/* ================= STATISTICS ================= */}
-      <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-6 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 mb-8">
         {cards.map((card) => (
           <div
             key={card.title}
-            className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-xl transition"
+            className="bg-white rounded-3xl shadow-lg p-4 md:p-6 hover:shadow-xl transition"
           >
             <div className={`w-14 h-14 ${card.bg} rounded-2xl flex items-center justify-center mb-4`}>
               <card.icon className={card.color} size={28} />
@@ -207,7 +207,7 @@ export default function Dashboard() {
 
             <p className="text-gray-500">{card.title}</p>
 
-            <h2 className={`text-4xl font-bold mt-2 ${card.color}`}>
+          <h2 className={`text-2xl md:text-4xl font-bold mt-2 ${card.color}`}>
               {card.value}
             </h2>
           </div>
@@ -215,7 +215,7 @@ export default function Dashboard() {
       </div>
 
       {/* ================= WIDGETS ================= */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* LOW STOCK */}
         {/* LOW STOCK */}

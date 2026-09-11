@@ -44,45 +44,108 @@ export default function Patients() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
+    <div className="min-h-screen bg-slate-100 p-4 md:p-6 lg:p-8">
+
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+      <div className="flex flex-col md:flex-row justify-between md:items-center gap-5 mb-8">
         <div>
-          <h1 className="text-5xl font-extrabold text-blue-700">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-blue-700">
             Patients Dashboard
           </h1>
 
-          <p className="text-gray-500 mt-2">
+          <p className="text-gray-500 mt-2 text-sm md:text-base">
             Manage all registered patients.
           </p>
         </div>
 
         <button
           onClick={() => navigate("/add-patient")}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold w-full md:w-auto"
         >
-          + Add Patient
+          ➕ Add Patient
         </button>
       </div>
 
-      {/* Patients Table */}
-      <div className="bg-white rounded-3xl shadow-lg p-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <h2 className="text-2xl font-bold text-blue-700">
-            Patients List
-          </h2>
+      {/* Search */}
+      <div className="bg-white rounded-3xl shadow-lg p-5 mb-6">
+        <input
+          type="text"
+          placeholder="🔍 Search Patient by Name, ID or Phone..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="border-2 border-blue-300 rounded-xl px-4 py-3 w-full outline-none focus:border-blue-600"
+        />
+      </div>
 
-          <input
-            type="text"
-            placeholder="🔍 Search Patient..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="border-2 border-blue-300 rounded-xl px-4 py-2 w-full md:w-80 outline-none focus:border-blue-600"
-          />
-        </div>
+      {/* Mobile Cards */}
+      <div className="md:hidden space-y-4">
+        {filteredPatients.length === 0 ? (
+          <div className="bg-white rounded-2xl shadow p-8 text-center text-gray-500">
+            No Patients Found
+          </div>
+        ) : (
+          filteredPatients.map((patient) => (
+            <div
+              key={patient.id}
+              className="bg-white rounded-3xl shadow-lg p-5"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <h2 className="text-xl font-bold text-blue-700">
+                    {patient.full_name}
+                  </h2>
 
+                  <p className="text-sm text-gray-500">
+                    ID : {patient.patient_id}
+                  </p>
+                </div>
+
+                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+                  {patient.gender}
+                </span>
+              </div>
+
+              <div className="space-y-2 text-sm">
+                <p><strong>Age :</strong> {patient.age || "--"}</p>
+                <p><strong>Phone :</strong> {patient.phone || "--"}</p>
+                <p><strong>Village :</strong> {patient.village || "--"}</p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 mt-5">
+                <button
+                  onClick={() =>
+                    navigate(`/patient-details/${patient.id}`)
+                  }
+                  className="bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold"
+                >
+                  View
+                </button>
+
+                <button
+                  onClick={() =>
+                    navigate(`/edit-patient/${patient.id}`)
+                  }
+                  className="bg-green-600 text-white py-2 rounded-lg text-sm font-semibold"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => deletePatient(patient.id)}
+                  className="bg-red-600 text-white py-2 rounded-lg text-sm font-semibold"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Tablet & Desktop Table */}
+      <div className="hidden md:block bg-white rounded-3xl shadow-lg p-6">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[850px]">
+          <table className="min-w-[900px] w-full">
             <thead className="bg-blue-600 text-white">
               <tr>
                 <th className="p-3 text-left">Patient ID</th>
@@ -96,7 +159,16 @@ export default function Patients() {
             </thead>
 
             <tbody>
-              {filteredPatients.length > 0 ? (
+              {filteredPatients.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={7}
+                    className="text-center py-8 text-gray-500"
+                  >
+                    No Patients Found
+                  </td>
+                </tr>
+              ) : (
                 filteredPatients.map((patient) => (
                   <tr
                     key={patient.id}
@@ -129,7 +201,7 @@ export default function Patients() {
                     </td>
 
                     <td className="p-3">
-                      <div className="flex justify-center gap-2">
+                      <div className="flex justify-center gap-2 flex-wrap">
                         <button
                           onClick={() =>
                             navigate(`/patient-details/${patient.id}`)
@@ -158,20 +230,12 @@ export default function Patients() {
                     </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="7"
-                    className="text-center py-8 text-gray-500"
-                  >
-                    No Patients Found
-                  </td>
-                </tr>
               )}
             </tbody>
           </table>
         </div>
       </div>
+
     </div>
   );
 }
