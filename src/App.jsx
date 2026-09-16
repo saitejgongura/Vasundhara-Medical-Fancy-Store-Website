@@ -34,7 +34,7 @@ function AppLayout() {
     );
   }
 
-  // Dashboard & Other Pages
+  // Dashboard & Other Pagess
   return (
     <div className="md:flex min-h-screen bg-slate-100">
       <Sidebar />
