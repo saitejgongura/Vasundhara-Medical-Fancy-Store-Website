@@ -1,0 +1,21 @@
+services:
+  website:
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY}
+
+    container_name: vasundhara-web
+
+    ports:
+      - "8081:80"
+
+    volumes:
+      - uploads:/usr/share/nginx/html/uploads
+
+    restart: unless-stopped
+
+volumes:
+  uploads:
