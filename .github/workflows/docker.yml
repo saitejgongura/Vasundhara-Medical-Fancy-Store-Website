@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,5 +27,20 @@ jobs:
             -t saitejgongura/vasundhara-medical:latest .
 
       - name: Push Docker Image
-        run: |
-          docker push saitejgongura/vasundhara-medical:latest
+        run: docker push saitejgongura/vasundhara-medical:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker pull saitejgongura/vasundhara-medical:latest
+            sudo docker stop vasundhara-web || true
+            sudo docker rm vasundhara-web || true
+            sudo docker run -d \
+              --name vasundhara-web \
+              --restart unless-stopped \
+              -p 80:80 \
+              saitejgongura/vasundhara-medical:latest
